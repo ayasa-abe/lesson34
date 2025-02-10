@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="h-100" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="common/header :: head_fragment(title=従業員新規登録)"></head>
+<head th:replace="common/header :: head_fragment(title=従業員更新)"></head>
 
 <body class="h-100 overflow-hidden">
     <div class="row h-100">
@@ -13,62 +13,69 @@
             <!-- コンテンツ -->
             <div class="container-fluid p-0">
                 <h1 class="h3 mb-3">従業員 更新</h1>
-            </div>
+            <div class="card" style="width: 40rem;">
+        </div>
+           </div>
+          <div class="col-12 col-xxl-6">
+            <div class="col-xl-12">
             <div class="card">
               <div class="card-header">
-                パスワードは変更する場合のみ入力してください
+                <span>パスワードは変更する場合のみ入力してください</span>
               </div>
-            <div class="col-12 col-xxl-6">
-
-                <div class="col-xl-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <form th:action="@{/employees/update}" th:object="${employee}" th:method="post">
-                                <div class="wizard wizard-success mb-4">
-                                    <div class="mb-3">
-                                        <label class="form-label" for="code">社員番号</label>
-                                        <p class="mb-1"></p>
-                                        <div class="col-md-7">
-                                            <input type="hidden" id="code" name="code" th:value="*{code}" th:text="*{code}">
-                                        </div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label" for="name">氏名</label>
-                                        <p class="mb-1"></p>
-                                        <div class="col-md-7">
-                                            <input class="form-control" type="text" th:field="*{name}" th:errorclass="err" id="name">
-                                            <span th:errors="*{name}" class="text-danger"></span>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label" for="password">パスワード</label>
-                                        <p class="mb-1"></p>
-                                        <div class="col-md-7">
-                                            <input class="form-control" type="password" th:field="*{password}" th:errorclass="err" id="password">
-                                            <span th:if="${passwordError} neq null" th:text="${passwordError}" class="text-danger"></span>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label" for="role">権限</label>
-                                        <p class="mb-1"></p>
-                                        <div class="col-md-4">
-                                            <select class="form-select" th:field="*{role}" id="role">
-                                                <option th:each="item:${T(com.techacademy.entity.Employee.Role).values()}" th:value="${item}" th:text="${item.getValue()}" th:selected="*{role} == ${item}">
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p class="mt-5">
-                                    <input type="submit" value="更新" class="btn btn-primary">
-                                    <a th:href="@{/employees}" class="btn btn-primary">戻る</a>
-                                </p>
-                            </form>
-                        </div>
-                    </div>
+                <div class="card-body">
+                 <form th:action="@{/employees/{code}/update(code=${code})}" th:object="${employee}" th:method="post">
+                <div class="wizard wizard-success mb-4">
+                <div class="mb-3">
+                  <label class="form-label" for="code">社員番号</label>
+                  <p class="mb-1"></p>
+                <div class="col-md-7">
+                    <span th:text="*{code}"></span>
                 </div>
+                </div>
+                   <div class="mb-3">
+                   <label class="form-label" for="name">氏名</label>
+                   <p class="mb-1"></p>
+                   <div class="col-md-7">
+                     <input class="form-control" type="text" th:field="*{name}" th:errorclass="err" id="name">
+                     <span th:errors="*{name}" class="text-danger"></span>
+                 </div>
+                 </div>
+                     <div class="mb-3">
+                       <label class="form-label" for="password">パスワード</label>
+                       <p class="mb-1"></p>
+                       <div class="col-md-7">
+                       <input class="form-control" type="password" th:field="*{password}" th:errorclass="err" id="password">
+                       <span th:if="${passwordError} neq null" th:text="${passwordError}" class="text-danger"></span>
+                 </div>
+                 </div>
+                    <div class="mb-3">
+                       <label class="form-label" for="role">権限</label>
+                       <p class="mb-1"></p>
+                    <div class="col-md-4">
+                    <select class="form-select" th:field="*{role}" id="role">
+                    <option th:each="item:${T(com.techacademy.entity.Employee.Role).values()}" th:value="${item}" th:text="${item.getValue()}" th:selected="*{role} == ${item}">
+                    <tr>
+                        <th>登録日時</th>
+                        <td class="align-moddle" th:text="${#temporals.format(employee.createdAt, 'yyyy-MM-dd hh:mm:ss')}"> </td>
+                    </tr>
+                    <tr>
+                        <th>更新日時</th>
+                        <td class="align-moddle" th:text="${#temporals.format(employee.createdAt, 'yyyy-MM-dd hh:mm:ss')}"> </td>
+                    </tr>
+                   </select>
+                  </div>
+                 </div>
+                </div>
+                   <p class="mt-5">
+                   <input type="submit" value="更新" class="btn btn-primary">
+                  <a th:href="@{/employees}" class="btn btn-primary">戻る</a>
+                  </p>
+                </form>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-</body>
-
-</html>
+   </body>
+   </html>
