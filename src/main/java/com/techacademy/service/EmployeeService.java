@@ -51,31 +51,34 @@ public class EmployeeService {
 	}
 
 	// 従業員更新
-	@Transactional
-    public ErrorKinds update(Employee employee) {
-		Employee emp = findByCode(employee.getCode());
-		if("".equals(employee.getPassword())) {
-			employee.setPassword(emp.getPassword());
+		@Transactional
+	    public ErrorKinds update(Employee employee) {
+			Employee emp = findByCode(employee.getCode());
 
-    	} else {
+			if("".equals(employee.getPassword())) {
+				employee.setPassword(emp.getPassword());
 
-    	    // パスワードの入力欄が空でない場合
-    	    // パスワードチェックを行う(employeePasswordCheckメソッドを利用)
-    	    // エラーの場合はemployeePasswordCheckメソッドの戻り値を返して終了
-            ErrorKinds result = employeePasswordCheck(employee);
-            if (ErrorKinds.CHECK_OK != result) {
-                return result;
-            }
-        }
+	    	}
+			else {
+	    	 // パスワードの入力欄が空でない場合
+	    	 // パスワードチェックを行う(employeePasswordCheckメソッドを利用)
+	         // エラーの場合はemployeePasswordCheckメソッドの戻り値を返して終了
+	            ErrorKinds result = employeePasswordCheck(employee);
+	            if (ErrorKinds.CHECK_OK != result) {
+	                return result;
+	            }
+	        }
 
-		employee.setDeleteFlg(false);
+			employee.setDeleteFlg(false);
 
-    	LocalDateTime now = LocalDateTime.now();  // 現在の日時を取得
-        employee.setCreatedAt(emp.getCreatedAt());
+	    	LocalDateTime now = LocalDateTime.now();  // 現在の日時を取得
+	        employee.setCreatedAt(emp.getCreatedAt());
+	        employee.setUpdatedAt(now);
 
-        employeeRepository.save(employee);  // 従業員オブジェクトをデータベースに保存
-        return ErrorKinds.SUCCESS; // 更新成功
-        }
+	        employeeRepository.save(employee);  // 従業員オブジェクトをデータベースに保存
+	        return ErrorKinds.SUCCESS; // 更新成功
+
+	        }
 
 	// 従業員削除
 	@Transactional

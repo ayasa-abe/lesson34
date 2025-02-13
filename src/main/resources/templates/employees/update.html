@@ -23,13 +23,13 @@
                 <span>パスワードは変更する場合のみ入力してください</span>
               </div>
                 <div class="card-body">
-                 <form th:action="@{/employees/{code}/update(code=${code})}" th:object="${employee}" th:method="post">
+                 <form th:action="@{/employees/{code}/update}" th:object="${employee}" th:method="post">
                 <div class="wizard wizard-success mb-4">
                 <div class="mb-3">
                   <label class="form-label" for="code">社員番号</label>
                   <p class="mb-1"></p>
                 <div class="col-md-7">
-                    <span th:text="*{code}"></span>
+                    <span th:text="${employee.code}"></span>
                 </div>
                 </div>
                    <div class="mb-3">
@@ -63,9 +63,9 @@
                         <td class="align-moddle" th:text="${#temporals.format(employee.createdAt, 'yyyy-MM-dd hh:mm:ss')}"> </td>
                     </tr>
                    </select>
+                   </div>
                   </div>
                  </div>
-                </div>
                    <p class="mt-5">
                    <input type="submit" value="更新" class="btn btn-primary">
                   <a th:href="@{/employees}" class="btn btn-primary">戻る</a>

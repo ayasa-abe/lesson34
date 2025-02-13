@@ -103,13 +103,13 @@ public class EmployeeController {
 	public String edit(@PathVariable("code") String code,@ModelAttribute Employee employee, Model model) {
 		model.addAttribute("employee", employeeService.findByCode(code));
 
-		// 従業印更新画面に遷移
+		// 従業員更新画面に遷移
 		return "employees/update";
 	}
 
 	/** 従業員更新処理 */
 	@PostMapping(value = "/{code}/update")
-	public String update(@PathVariable("code") String code, @Validated Employee employee, BindingResult res,Model model) {
+	public String update(@PathVariable("code") String code, @Validated Employee employee, BindingResult res, Model model) {
 		// 入力チェック
 		if (res.hasErrors()) {
 			model.addAttribute("employee", employee);

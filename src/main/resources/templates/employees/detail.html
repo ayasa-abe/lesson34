@@ -46,6 +46,9 @@
                                 </table>
                                 <div class="mt-5 row g-1">
                                     <div class="col-auto">
+                                        <a th:href="@{/employees/{code}/update(code=${employee.code})}" class="btn btn-primary">更新</a>
+                                        </div>
+                                        <div class="col-auto">
                                         <form name="form" th:action="@{/employees/{code}/delete(code=${code})}" th:method="post">
                                             <input type="submit" value="削除" class="btn btn-primary">
                                         </form>
@@ -53,14 +56,10 @@
                                     <div class="col-auto">
                                         <a th:href="@{/employees}" class="btn btn-primary">戻る</a>
                                     </div>
-                                    <!-- 従業員更新画面への遷移ボタン -->
-                                    <div class="col-auto">
-                                        <a th:href="@{/employees/update/{code}(code=${employee.code})}" class="btn btn-primary">更新</a>
                                     </div>
                                 </div>
                                 <span th:if="${deleteError} neq null" th:text="${deleteError}" class="text-danger"></span>
                             </div>
-
                         </div>
                     </div>
                 </div>
